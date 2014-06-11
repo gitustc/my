@@ -1,0 +1,40 @@
+/*
+ * =====================================================================================
+ *
+ *       Filename: main.cpp
+ *        Created: 06/10/2014 04:59:07 PM
+ *  Last Modified: 06/10/2014 05:47:27 PM
+ *
+ *    Description: test of db
+ *
+ *        Version: 1.0
+ *       Revision: none
+ *       Compiler: gcc
+ *
+ *         Author: ANHONG
+ *          Email: anhonghe@gmail.com
+ *   Organization: USTC
+ *
+ * =====================================================================================
+ */
+
+#include "./db.hpp"
+#include <cstdio>
+
+int main()
+{
+    my::db::connection conn;
+
+    conn.connect();
+    conn.query("use helloworld");
+    conn.query("select * from student");
+    for(int i=0; i<conn.rows(); i++){
+        printf("\n");
+        for(int j=0; j<conn.columns(); j++){
+            printf("%s ", conn.get(i,j));
+        }
+    }
+    printf("\n");
+    conn.query("insert into student (name) values(\"fuck\")");
+    return 0;
+}
